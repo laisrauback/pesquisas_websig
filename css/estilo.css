@@ -1,28 +1,40 @@
+/* ========================================
+   CONFIGURAÇÃO GERAL
+======================================== */
+
 html,
 body {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
 #map {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
+    height: 100dvh;
 }
+
+/* ========================================
+   TÍTULO
+======================================== */
 
 #titulo {
     position: fixed;
     z-index: 1000;
     top: 20px;
     left: 20px;
+    max-width: calc(100% - 460px);
+    box-sizing: border-box;
 
     background: rgba(255, 255, 255, 0.9);
-
     padding: 10px 15px;
-
     border-radius: 5px;
-
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 
     pointer-events: none;
@@ -48,8 +60,9 @@ body {
 
     top: 20px;
     right: 80px;
-
     width: 350px;
+    max-width: calc(100vw - 100px);
+    box-sizing: border-box;
 
     pointer-events: auto !important;
 }
@@ -57,7 +70,7 @@ body {
 #campo-pesquisa {
     display: block !important;
 
-    width: 350px !important;
+    width: 100% !important;
     height: 42px !important;
 
     padding: 10px 14px !important;
@@ -72,7 +85,6 @@ body {
     font-size: 14px !important;
 
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-
     outline: none;
 
     pointer-events: auto !important;
@@ -80,23 +92,18 @@ body {
 
 #resultados-pesquisa {
     display: none;
-
     position: relative !important;
-
     z-index: 1000000 !important;
 
-    width: 350px;
-
-    max-height: 350px;
-
+    width: 100%;
+    max-height: min(350px, 50dvh);
     overflow-y: auto;
+    overscroll-behavior: contain;
 
     margin-top: 5px;
 
     background: #ffffff !important;
-
     border: 1px solid #cccccc;
-
     border-radius: 5px;
 
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
@@ -106,24 +113,20 @@ body {
 
 .resultado-pesquisa {
     display: block;
-
     position: relative;
-
     z-index: 1000001;
 
     padding: 10px 12px;
 
     background: #ffffff;
-
     border-bottom: 1px solid #eeeeee;
 
     cursor: pointer !important;
-
     font-size: 14px;
 
     pointer-events: auto !important;
-
     user-select: none;
+    overflow-wrap: anywhere;
 }
 
 .resultado-pesquisa:hover {
@@ -136,25 +139,191 @@ body {
 
 .tipo-resultado {
     display: block;
-
     margin-top: 3px;
 
     color: #666666;
-
     font-size: 12px;
 
     pointer-events: none;
 }
 
 /* ========================================
-   CAMADAS DO MODAL
+   MODAL
 ======================================== */
 
-/* Modal e fundo do modal ficam acima da barra */
 .modal-backdrop {
     z-index: 1040 !important;
 }
 
 .modal {
     z-index: 1050 !important;
+}
+
+/* ========================================
+   TABLETS
+======================================== */
+
+@media screen and (max-width: 900px) {
+    #titulo {
+        top: 15px;
+        left: 15px;
+        max-width: calc(100vw - 390px);
+        padding: 9px 12px;
+    }
+
+    #titulo h1 {
+        font-size: 19px;
+    }
+
+    #titulo p {
+        font-size: 12px;
+    }
+
+    #area-pesquisa {
+        top: 15px;
+        right: 65px;
+        width: 300px;
+        max-width: calc(100vw - 390px);
+    }
+}
+
+/* ========================================
+   CELULARES
+======================================== */
+
+@media screen and (max-width: 600px) {
+    /* Título na parte superior */
+    #titulo {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+
+        width: auto;
+        max-width: none;
+
+        padding: 8px 10px;
+        border-radius: 5px;
+    }
+
+    #titulo h1 {
+        font-size: 17px;
+        line-height: 1.25;
+    }
+
+    #titulo p {
+        margin-top: 4px;
+        font-size: 11px;
+        line-height: 1.3;
+    }
+
+    /* Pesquisa abaixo do título */
+    #area-pesquisa {
+        top: 95px;
+        left: 10px;
+        right: 10px;
+
+        width: auto;
+        max-width: none;
+    }
+
+    #campo-pesquisa {
+        width: 100% !important;
+        height: 42px !important;
+
+        padding: 10px 12px !important;
+        font-size: 14px !important;
+    }
+
+    #resultados-pesquisa {
+        width: 100%;
+        max-height: 40dvh;
+        margin-top: 5px;
+    }
+
+    .resultado-pesquisa {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .tipo-resultado {
+        font-size: 12px;
+    }
+
+    /* Modal adaptado à largura do celular */
+    .modal-dialog {
+        width: auto;
+        max-width: none;
+        margin: 10px;
+    }
+
+    .modal-content {
+        max-height: calc(100dvh - 20px);
+        overflow: hidden;
+    }
+
+    .modal-header {
+        padding: 10px 12px;
+    }
+
+    .modal-title {
+        font-size: 17px;
+    }
+
+    .modal-body {
+        padding: 12px;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
+    /* Controles do Leaflet */
+    .leaflet-top.leaflet-right {
+        top: 145px;
+    }
+
+    .leaflet-control-zoom a {
+        width: 32px !important;
+        height: 32px !important;
+        line-height: 32px !important;
+    }
+
+    .leaflet-control-layers {
+        max-width: calc(100vw - 30px);
+    }
+}
+
+/* ========================================
+   CELULARES EM MODO PAISAGEM
+======================================== */
+
+@media screen and (max-width: 900px) and (orientation: landscape) {
+    #titulo {
+        top: 8px;
+        left: 8px;
+        max-width: 42vw;
+        padding: 6px 9px;
+    }
+
+    #titulo h1 {
+        font-size: 15px;
+    }
+
+    #titulo p {
+        font-size: 10px;
+    }
+
+    #area-pesquisa {
+        top: 8px;
+        right: 55px;
+        left: auto;
+        width: 280px;
+        max-width: 45vw;
+    }
+
+    #resultados-pesquisa {
+        max-height: 45dvh;
+    }
+
+    .leaflet-top.leaflet-right {
+        top: 60px;
+    }
 }
